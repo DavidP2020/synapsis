@@ -208,7 +208,7 @@ export default function User() {
           type="text"
           placeholder="Search Name...."
           value={value}
-          className="m-4 w-3/12"
+          style={{ margin: "3rem 2rem 2rem 1rem", width: "50%" }}
           onChange={(e) => filterData(e)}
         />
         <TableContainer sx={{ maxHeight: 540 }}>
