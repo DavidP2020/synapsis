@@ -15,7 +15,7 @@ export default function Description({ data, handleClose, ...props }) {
           component={"div"}
           className="overflow-auto"
         >
-          <div className="flex lg:flex-row flex-col flex-wrap mb-10 w-full">
+          <div className="flex lg:flex-row flex-col flex-wrap mb-10">
             {/* Left Side */}
             <div className="lg:left-side lg:w-1/2 w-full">
               <Image

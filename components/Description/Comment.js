@@ -58,7 +58,7 @@ export default function Comment({ data, handleClose, ...props }) {
                                 color="text.primary"
                               >
                                 <div className="flex flex-wrap mb-2">
-                                  <div className="lg:text-xl md:text-lg text-sm font-bold">
+                                  <div className="lg:text-xl md:text-lg text-sm font-bold lg:text-left text-center">
                                     {comment.name}
                                   </div>
                                 </div>
@@ -71,7 +71,7 @@ export default function Comment({ data, handleClose, ...props }) {
                                 sx={{ display: "inline" }}
                                 component="span"
                                 variant="body2"
-                                className="lg:text-sm text-xs"
+                                className="lg:text-sm text-xs lg:text-left text-center"
                                 color="text.primary"
                               >
                                 {comment.body}
@@ -91,7 +91,7 @@ export default function Comment({ data, handleClose, ...props }) {
         </List>
       </div>
       <div>
-        <div className="flex flex-row">
+        <div className="flex flex-row ">
           <textarea
             className="h-28 w-full appearance-none block border border-slate-600 rounded-lg py-4 px-3 focus:outline-none"
             placeholder="Comments"
