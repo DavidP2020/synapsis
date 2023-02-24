@@ -102,7 +102,6 @@ export default function Author({ data, ...props }) {
           onClick={() => handleOpen()}
         />
       </div>
-      {/* Pop Up */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -132,7 +131,6 @@ export default function Author({ data, ...props }) {
               sx={{ mt: 2 }}
               component={"div"}
             >
-              {/* Isi Pop Up */}
               <Description data={data} handleClose={handleClose} />
             </Typography>
           </Box>

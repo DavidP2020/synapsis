@@ -164,7 +164,6 @@ function Topic() {
                         sx={{ mt: 2 }}
                         component={"div"}
                       >
-                        {/* Isi Pop Up */}
                         <Description data={id} handleClose={handleClose} />
                       </Typography>
                     </Box>

@@ -101,14 +101,13 @@ export default function User() {
     setId(id);
     setOpenEdit(true);
   };
-  //function untuk tutup  pop up
   const handleCloseEdit = () => setOpenEdit(false);
 
   const handleOpenDelete = (id) => {
     setId(id);
     setOpenDelete(true);
   };
-  //function untuk tutup  pop up
+
   const handleCloseDelete = () => setOpenDelete(false);
 
   const fetchItem = async () => {
@@ -136,7 +135,6 @@ export default function User() {
 
   const filterData = (e) => {
     if (e.target.value != "") {
-      console.log(e.target.value);
       setValue(e.target.value);
       const filteredRows = listUser.filter((rowsPerPage) => {
         return rowsPerPage.name
@@ -144,7 +142,6 @@ export default function User() {
           .includes(e.target.value.toLowerCase());
       });
       setSearched(filteredRows);
-      console.log(filteredRows);
     } else {
       setValue(e.target.value);
       setlistUser([...listUser]);
@@ -168,7 +165,7 @@ export default function User() {
         >
           Create User
         </Button>
-        {/* Pop Up */}
+
         <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
@@ -301,7 +298,6 @@ export default function User() {
                                         sx={{ mt: 2 }}
                                         component={"div"}
                                       >
-                                        {/* Isi Pop Up */}
                                         <EditUser
                                           data={id}
                                           handleClose={handleCloseEdit}
@@ -350,7 +346,6 @@ export default function User() {
                                         sx={{ mt: 2 }}
                                         component={"div"}
                                       >
-                                        {/* Isi Pop Up */}
                                         <DeleteUser
                                           data={id}
                                           handleClose={handleCloseDelete}
@@ -404,7 +399,7 @@ export default function User() {
                                 >
                                   Edit
                                 </Button>
-                                {/* Pop Up */}
+
                                 <Modal
                                   aria-labelledby="transition-modal-title"
                                   aria-describedby="transition-modal-description"
@@ -436,7 +431,6 @@ export default function User() {
                                         sx={{ mt: 2 }}
                                         component={"div"}
                                       >
-                                        {/* Isi Pop Up */}
                                         <EditUser
                                           data={id}
                                           handleClose={handleCloseEdit}
@@ -453,7 +447,6 @@ export default function User() {
                                 >
                                   Delete
                                 </Button>
-                                {/* Pop Up */}
                                 <Modal
                                   aria-labelledby="transition-modal-title"
                                   aria-describedby="transition-modal-description"
@@ -485,7 +478,6 @@ export default function User() {
                                         sx={{ mt: 2 }}
                                         component={"div"}
                                       >
-                                        {/* Isi Pop Up */}
                                         <DeleteUser
                                           data={id}
                                           handleClose={handleCloseDelete}
