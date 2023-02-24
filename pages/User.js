@@ -259,13 +259,13 @@ export default function User() {
                               aria-label="text button group"
                             >
                               <Stack spacing={1} direction="row">
-                                <Button
+                                <button
                                   variant="contained"
-                                  className="bg-green-600"
+                                  className="bg-green-600 pl-6 pr-6 pt-2 pb-2 text-white rounded-sm"
                                   onClick={() => handleOpenEdit(userData)}
                                 >
-                                  Edit
-                                </Button>
+                                  EDIT
+                                </button>
                                 {/* Pop Up */}
                                 <Modal
                                   aria-labelledby="transition-modal-title"
@@ -307,13 +307,13 @@ export default function User() {
                                     </Box>
                                   </Fade>
                                 </Modal>
-                                <Button
+                                <button
                                   variant="contained"
-                                  className="bg-red-600"
+                                  className="bg-red-600 pl-6 pr-6 pt-2 pb-2 text-white rounded-sm"
                                   onClick={() => handleOpenDelete(userData)}
                                 >
-                                  Delete
-                                </Button>
+                                  DELETE
+                                </button>
                                 {/* Pop Up */}
                                 <Modal
                                   aria-labelledby="transition-modal-title"
@@ -392,13 +392,13 @@ export default function User() {
                               aria-label="text button group"
                             >
                               <Stack spacing={1} direction="row">
-                                <Button
+                                <button
                                   variant="contained"
-                                  className="bg-green-600"
+                                  className="bg-green-600 pl-6 pr-6 pt-2 pb-2 text-white rounded-sm"
                                   onClick={() => handleOpenEdit(userData)}
                                 >
-                                  Edit
-                                </Button>
+                                  EDIT
+                                </button>
 
                                 <Modal
                                   aria-labelledby="transition-modal-title"
@@ -440,13 +440,13 @@ export default function User() {
                                     </Box>
                                   </Fade>
                                 </Modal>
-                                <Button
+                                <button
                                   variant="contained"
-                                  className="bg-red-600"
+                                  className="bg-red-600 pl-6 pr-6 pt-2 pb-2 text-white rounded-sm"
                                   onClick={() => handleOpenDelete(userData)}
                                 >
-                                  Delete
-                                </Button>
+                                  DELETE
+                                </button>
                                 <Modal
                                   aria-labelledby="transition-modal-title"
                                   aria-describedby="transition-modal-description"
