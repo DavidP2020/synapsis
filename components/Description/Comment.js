@@ -57,7 +57,7 @@ export default function Comment({ data, handleClose, ...props }) {
                                 variant="body2"
                                 color="text.primary"
                               >
-                                <div className="flex flex-wrap mb-2">
+                                <div className="flex flex-wrap mb-2 lg:justify-start lg:items-start justify-center items-center">
                                   <div className="lg:text-xl md:text-lg text-sm font-bold lg:text-left text-center">
                                     {comment.name}
                                   </div>

@@ -112,9 +112,9 @@ export default function Author({ data, ...props }) {
         <Fade in={open}>
           <Box
             sx={style}
-            style={{ background: "white" }}
+            style={{ background: "white", width: "80%" }}
             component={"div"}
-            className="w-3/4 overflow-auto max-h-full"
+            className="overflow-auto max-h-full"
           >
             <Toolbar style={{ marginLeft: "-1rem" }}>
               <Typography component="div" sx={{ flexGrow: 2 }}>
