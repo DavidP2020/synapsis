@@ -22,7 +22,7 @@ import {
 import { Box, Stack } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { ACCESS_TOKEN, API_URL } from "../api/constant";
+import { ACCESS_TOKEN, API_URL } from "./api/constant";
 
 export default function User() {
   const columns = [
@@ -89,7 +89,7 @@ export default function User() {
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [searched, setSearched] = useState();
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("");
 
   const handleOpenCreate = () => {
     setOpen(true);

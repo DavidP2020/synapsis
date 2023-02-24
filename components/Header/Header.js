@@ -31,7 +31,7 @@ function Header() {
                 </Link>
               </li>
               <li>
-                <Link href="/User/user" className="navbar-links">
+                <Link href="/User" className="navbar-links">
                   User
                 </Link>
               </li>
