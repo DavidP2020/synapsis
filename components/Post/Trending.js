@@ -88,9 +88,8 @@ function Topic() {
           .map((data, i) => {
             return (
               <>
-                <ListItem>
+                <ListItem key={i}>
                   <ListItemButton
-                    key={i}
                     className="shadow-xl lg:flex lg:flex-row lg:text-left text-center flex flex-col"
                     onClick={() => handleOpen(data)}
                   >

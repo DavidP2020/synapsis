@@ -45,8 +45,8 @@ export default function DeleteUser({
         component={"div"}
       >
         <div className="mb-6">
-          Are you sure want to delete this Username : <b>{data.name}</b> ? your
-          action can't be reverted
+          Are you sure want to delete this Username : <b>{data.name}</b> ?
+          your`&lsquo; &apos; action can't be reverted
         </div>
         <div style={{ textAlign: "right" }}>
           <Button

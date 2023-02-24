@@ -34,7 +34,7 @@ export default function Author({ data, ...props }) {
   };
   const handleClose = () => setOpen(false);
 
-  const fetchItem = async () => {
+  const fetchAuthor = async () => {
     const config = {
       headers: {
         Authorization: `Bearer ${ACCESS_TOKEN}`,
@@ -53,8 +53,9 @@ export default function Author({ data, ...props }) {
   };
 
   useEffect(() => {
-    fetchItem();
+    fetchAuthor();
   }, []);
+
   return (
     <div className="flex flex-wrap">
       <div className="left-side w-3/4">
@@ -132,11 +133,7 @@ export default function Author({ data, ...props }) {
               component={"div"}
             >
               {/* Isi Pop Up */}
-              <Description
-                data={data}
-                handleClose={handleClose}
-                fetchItem={fetchItem}
-              />
+              <Description data={data} handleClose={handleClose} />
             </Typography>
           </Box>
         </Fade>

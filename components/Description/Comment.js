@@ -42,11 +42,8 @@ export default function Comment({ data, handleClose, ...props }) {
               <>
                 {comment.post_id === data ? (
                   <>
-                    <ListItem>
-                      <ListItemButton
-                        key={i}
-                        className="shadow-xl lg:flex lg:flex-row lg:text-left text-center flex flex-col"
-                      >
+                    <ListItem key={i}>
+                      <ListItemButton className="shadow-xl lg:flex lg:flex-row lg:text-left text-center flex flex-col">
                         <ListItemAvatar>
                           <Avatar src={"/image/avatar.jpg"} />
                         </ListItemAvatar>

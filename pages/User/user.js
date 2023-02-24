@@ -15,6 +15,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  TextField,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -24,15 +25,6 @@ import React, { useEffect, useState } from "react";
 import { ACCESS_TOKEN, API_URL } from "../api/constant";
 
 export default function User() {
-  return (
-    <div>
-      <Header></Header>
-      {table()}
-    </div>
-  );
-}
-
-function table() {
   const columns = [
     {
       id: "no",
@@ -96,6 +88,8 @@ function table() {
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [searched, setSearched] = useState();
+  const [value, setValue] = useState();
 
   const handleOpenCreate = () => {
     setOpen(true);
@@ -131,11 +125,6 @@ function table() {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    fetchItem();
-  }, []);
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -144,8 +133,32 @@ function table() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const filterData = (e) => {
+    if (e.target.value != "") {
+      console.log(e.target.value);
+      setValue(e.target.value);
+      const filteredRows = listUser.filter((rowsPerPage) => {
+        return rowsPerPage.name
+          .toLowerCase()
+          .includes(e.target.value.toLowerCase());
+      });
+      setSearched(filteredRows);
+      console.log(filteredRows);
+    } else {
+      setValue(e.target.value);
+      setlistUser([...listUser]);
+    }
+  };
+
+  useEffect(() => {
+    fetchItem();
+  }, []);
   return (
     <>
+      <div>
+        <Header></Header>
+      </div>
       <h2 className="font-bold text-2xl m-6">List User</h2>
       <div className="text-right mb-10 mr-10">
         <Button
@@ -192,6 +205,15 @@ function table() {
         </Modal>
       </div>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        <TextField
+          label="Search"
+          variant="outlined"
+          type="text"
+          placeholder="Search Name...."
+          value={value}
+          className="m-4 w-3/12"
+          onChange={(e) => filterData(e)}
+        />
         <TableContainer sx={{ maxHeight: 540 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
@@ -208,141 +230,277 @@ function table() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {listUser
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((userData, i) => (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={userData.id}
-                  >
-                    <TableCell align="center">{i + 1}</TableCell>
-                    <TableCell align="center">{userData.id}</TableCell>
-                    <TableCell align="center">{userData.name}</TableCell>
-                    <TableCell align="center">{userData.email}</TableCell>
-                    <TableCell align="center">{userData.gender}</TableCell>
-                    <TableCell align="center">{userData.status}</TableCell>
-                    <TableCell align="center">
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          "& > *": {
-                            m: 1,
-                          },
-                        }}
+              {value.length > 0
+                ? searched
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((userData, i) => (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={userData.id}
                       >
-                        <ButtonGroup
-                          variant="text"
-                          aria-label="text button group"
-                        >
-                          <Stack spacing={1} direction="row">
-                            <Button
-                              variant="contained"
-                              className="bg-green-600"
-                              onClick={() => handleOpenEdit(userData)}
+                        <TableCell align="center">{i + 1}</TableCell>
+                        <TableCell align="center">{userData.id}</TableCell>
+                        <TableCell align="center">{userData.name}</TableCell>
+                        <TableCell align="center">{userData.email}</TableCell>
+                        <TableCell align="center">{userData.gender}</TableCell>
+                        <TableCell align="center">{userData.status}</TableCell>
+                        <TableCell align="center">
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              "& > *": {
+                                m: 1,
+                              },
+                            }}
+                          >
+                            <ButtonGroup
+                              variant="text"
+                              aria-label="text button group"
                             >
-                              Edit
-                            </Button>
-                            {/* Pop Up */}
-                            <Modal
-                              aria-labelledby="transition-modal-title"
-                              aria-describedby="transition-modal-description"
-                              open={openEdit}
-                              onClose={handleCloseEdit}
-                              closeAfterTransition
-                            >
-                              <Fade in={openEdit}>
-                                <Box
-                                  sx={style}
-                                  style={{ background: "white" }}
-                                  component={"div"}
+                              <Stack spacing={1} direction="row">
+                                <Button
+                                  variant="contained"
+                                  className="bg-green-600"
+                                  onClick={() => handleOpenEdit(userData)}
                                 >
-                                  <Toolbar style={{ marginLeft: "-1rem" }}>
-                                    <Typography
-                                      component="div"
-                                      sx={{ flexGrow: 2 }}
-                                    >
-                                      <b className="text-xl">Edit User</b>
-                                    </Typography>
-                                    <i
-                                      className="icon fa fa-times"
-                                      aria-hidden="true"
-                                      onClick={handleCloseEdit}
-                                    ></i>
-                                  </Toolbar>
-                                  <Typography
-                                    id="transition-modal-description"
-                                    sx={{ mt: 2 }}
-                                    component={"div"}
-                                  >
-                                    {/* Isi Pop Up */}
-                                    <EditUser
-                                      data={id}
-                                      handleClose={handleCloseEdit}
-                                      fetchItem={fetchItem}
-                                    />
-                                  </Typography>
-                                </Box>
-                              </Fade>
-                            </Modal>
-                            <Button
-                              variant="contained"
-                              className="bg-red-600"
-                              onClick={() => handleOpenDelete(userData)}
-                            >
-                              Delete
-                            </Button>
-                            {/* Pop Up */}
-                            <Modal
-                              aria-labelledby="transition-modal-title"
-                              aria-describedby="transition-modal-description"
-                              open={openDelete}
-                              onClose={handleCloseDelete}
-                              closeAfterTransition
-                            >
-                              <Fade in={openDelete}>
-                                <Box
-                                  sx={style}
-                                  style={{ background: "white" }}
-                                  component={"div"}
+                                  Edit
+                                </Button>
+                                {/* Pop Up */}
+                                <Modal
+                                  aria-labelledby="transition-modal-title"
+                                  aria-describedby="transition-modal-description"
+                                  open={openEdit}
+                                  onClose={handleCloseEdit}
+                                  closeAfterTransition
                                 >
-                                  <Toolbar style={{ marginLeft: "-1rem" }}>
-                                    <Typography
-                                      component="div"
-                                      sx={{ flexGrow: 2 }}
+                                  <Fade in={openEdit}>
+                                    <Box
+                                      sx={style}
+                                      style={{ background: "white" }}
+                                      component={"div"}
                                     >
-                                      <b className="text-xl">Delete User</b>
-                                    </Typography>
-                                    <i
-                                      className="icon fa fa-times"
-                                      aria-hidden="true"
-                                      onClick={handleCloseDelete}
-                                    ></i>
-                                  </Toolbar>
-                                  <Typography
-                                    id="transition-modal-description"
-                                    sx={{ mt: 2 }}
-                                    component={"div"}
-                                  >
-                                    {/* Isi Pop Up */}
-                                    <DeleteUser
-                                      data={id}
-                                      handleClose={handleCloseDelete}
-                                      fetchItem={fetchItem}
-                                    />
-                                  </Typography>
-                                </Box>
-                              </Fade>
-                            </Modal>
-                          </Stack>
-                        </ButtonGroup>
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                                      <Toolbar style={{ marginLeft: "-1rem" }}>
+                                        <Typography
+                                          component="div"
+                                          sx={{ flexGrow: 2 }}
+                                        >
+                                          <b className="text-xl">Edit User</b>
+                                        </Typography>
+                                        <i
+                                          className="icon fa fa-times"
+                                          aria-hidden="true"
+                                          onClick={handleCloseEdit}
+                                        ></i>
+                                      </Toolbar>
+                                      <Typography
+                                        id="transition-modal-description"
+                                        sx={{ mt: 2 }}
+                                        component={"div"}
+                                      >
+                                        {/* Isi Pop Up */}
+                                        <EditUser
+                                          data={id}
+                                          handleClose={handleCloseEdit}
+                                          fetchItem={fetchItem}
+                                        />
+                                      </Typography>
+                                    </Box>
+                                  </Fade>
+                                </Modal>
+                                <Button
+                                  variant="contained"
+                                  className="bg-red-600"
+                                  onClick={() => handleOpenDelete(userData)}
+                                >
+                                  Delete
+                                </Button>
+                                {/* Pop Up */}
+                                <Modal
+                                  aria-labelledby="transition-modal-title"
+                                  aria-describedby="transition-modal-description"
+                                  open={openDelete}
+                                  onClose={handleCloseDelete}
+                                  closeAfterTransition
+                                >
+                                  <Fade in={openDelete}>
+                                    <Box
+                                      sx={style}
+                                      style={{ background: "white" }}
+                                      component={"div"}
+                                    >
+                                      <Toolbar style={{ marginLeft: "-1rem" }}>
+                                        <Typography
+                                          component="div"
+                                          sx={{ flexGrow: 2 }}
+                                        >
+                                          <b className="text-xl">Delete User</b>
+                                        </Typography>
+                                        <i
+                                          className="icon fa fa-times"
+                                          aria-hidden="true"
+                                          onClick={handleCloseDelete}
+                                        ></i>
+                                      </Toolbar>
+                                      <Typography
+                                        id="transition-modal-description"
+                                        sx={{ mt: 2 }}
+                                        component={"div"}
+                                      >
+                                        {/* Isi Pop Up */}
+                                        <DeleteUser
+                                          data={id}
+                                          handleClose={handleCloseDelete}
+                                          fetchItem={fetchItem}
+                                        />
+                                      </Typography>
+                                    </Box>
+                                  </Fade>
+                                </Modal>
+                              </Stack>
+                            </ButtonGroup>
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                : listUser
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((userData, i) => (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={userData.id}
+                      >
+                        <TableCell align="center">{i + 1}</TableCell>
+                        <TableCell align="center">{userData.id}</TableCell>
+                        <TableCell align="center">{userData.name}</TableCell>
+                        <TableCell align="center">{userData.email}</TableCell>
+                        <TableCell align="center">{userData.gender}</TableCell>
+                        <TableCell align="center">{userData.status}</TableCell>
+                        <TableCell align="center">
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              "& > *": {
+                                m: 1,
+                              },
+                            }}
+                          >
+                            <ButtonGroup
+                              variant="text"
+                              aria-label="text button group"
+                            >
+                              <Stack spacing={1} direction="row">
+                                <Button
+                                  variant="contained"
+                                  className="bg-green-600"
+                                  onClick={() => handleOpenEdit(userData)}
+                                >
+                                  Edit
+                                </Button>
+                                {/* Pop Up */}
+                                <Modal
+                                  aria-labelledby="transition-modal-title"
+                                  aria-describedby="transition-modal-description"
+                                  open={openEdit}
+                                  onClose={handleCloseEdit}
+                                  closeAfterTransition
+                                >
+                                  <Fade in={openEdit}>
+                                    <Box
+                                      sx={style}
+                                      style={{ background: "white" }}
+                                      component={"div"}
+                                    >
+                                      <Toolbar style={{ marginLeft: "-1rem" }}>
+                                        <Typography
+                                          component="div"
+                                          sx={{ flexGrow: 2 }}
+                                        >
+                                          <b className="text-xl">Edit User</b>
+                                        </Typography>
+                                        <i
+                                          className="icon fa fa-times"
+                                          aria-hidden="true"
+                                          onClick={handleCloseEdit}
+                                        ></i>
+                                      </Toolbar>
+                                      <Typography
+                                        id="transition-modal-description"
+                                        sx={{ mt: 2 }}
+                                        component={"div"}
+                                      >
+                                        {/* Isi Pop Up */}
+                                        <EditUser
+                                          data={id}
+                                          handleClose={handleCloseEdit}
+                                          fetchItem={fetchItem}
+                                        />
+                                      </Typography>
+                                    </Box>
+                                  </Fade>
+                                </Modal>
+                                <Button
+                                  variant="contained"
+                                  className="bg-red-600"
+                                  onClick={() => handleOpenDelete(userData)}
+                                >
+                                  Delete
+                                </Button>
+                                {/* Pop Up */}
+                                <Modal
+                                  aria-labelledby="transition-modal-title"
+                                  aria-describedby="transition-modal-description"
+                                  open={openDelete}
+                                  onClose={handleCloseDelete}
+                                  closeAfterTransition
+                                >
+                                  <Fade in={openDelete}>
+                                    <Box
+                                      sx={style}
+                                      style={{ background: "white" }}
+                                      component={"div"}
+                                    >
+                                      <Toolbar style={{ marginLeft: "-1rem" }}>
+                                        <Typography
+                                          component="div"
+                                          sx={{ flexGrow: 2 }}
+                                        >
+                                          <b className="text-xl">Delete User</b>
+                                        </Typography>
+                                        <i
+                                          className="icon fa fa-times"
+                                          aria-hidden="true"
+                                          onClick={handleCloseDelete}
+                                        ></i>
+                                      </Toolbar>
+                                      <Typography
+                                        id="transition-modal-description"
+                                        sx={{ mt: 2 }}
+                                        component={"div"}
+                                      >
+                                        {/* Isi Pop Up */}
+                                        <DeleteUser
+                                          data={id}
+                                          handleClose={handleCloseDelete}
+                                          fetchItem={fetchItem}
+                                        />
+                                      </Typography>
+                                    </Box>
+                                  </Fade>
+                                </Modal>
+                              </Stack>
+                            </ButtonGroup>
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                    ))}
             </TableBody>
           </Table>
         </TableContainer>
@@ -358,8 +516,4 @@ function table() {
       </Paper>
     </>
   );
-}
-
-function createTask() {
-  return <></>;
 }
