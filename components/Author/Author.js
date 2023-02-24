@@ -82,7 +82,7 @@ export default function Author({ data, ...props }) {
           />
         </ListItemButton>
       </div>
-      <div className="right-side w-1/4 flex flex-wrap">
+      <div className="right-side w-1/4 flex">
         <Image
           src={"/image/love.svg"}
           alt="header-splash"
