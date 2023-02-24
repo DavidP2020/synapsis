@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Poppins:wght@300;400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: whitesmoke;
+}
+* > * {
+  font-family: "Poppins", sans-serif;
+}
+@layer components {
+  .navbar {
+    @apply text-white bg-black 
+    container mx-auto w-full 
+    pb-4 pt-4 pl-12 pr-12 
+    lg:rounded-lg;
+  }
+  .navbar-items {
+    @apply flex flex-wrap 
+    lg:justify-between lg:items-center 
+    lg:flex flex-row;
+  }
+  .navbar-links {
+    @apply flex py-2 px-4 
+    font-medium 
+    hover:border-b-gray-400
+    hover:border-b-4
+    transition-shadow;
+  }
+  .navbar-menu {
+    @apply lg:flex-row lg:space-x-3 
+    lg:space-y-0 space-y-2 flex flex-col pt-1;
+  }
+  .navbar-title {
+    @apply inline-flex text-xl 
+    font-bold tracking-wider p-2;
+  }
+
+  .section-container {
+    @apply container mx-auto py-10 text-center;
+  }
+  .title-text {
+    @apply text-3xl font-bold;
+  }
+  .started-desc {
+    @apply container mx-auto w-1/2 
+    items-center mt-4 text-xs;
+  }
+  .started-body {
+    @apply mt-12 container mx-auto bg-white rounded-2xl shadow-lg
+    text-black xl:w-5/6 lg:w-11/12 md:w-11/12 w-4/5;
+  }
+  .started-body-card {
+    @apply p-4 lg:text-left md:text-left sm:text-center;
+  }
+  .started-body-subTitle {
+    @apply lg:mt-4 lg:mb-4 md:mt-0 md:mt-0 md:text-xs;
+  }
+  .started-body-title {
+    @apply xl:text-4xl lg:text-xl md:text-sm sm:text-xs font-bold;
+  }
+  .started-body-desc {
+    @apply xl:text-sm lg:text-sm mt-4 md:text-xs;
+  }
+
+  .card {
+    @apply bg-white text-gray-700
+    lg:w-96 w-64 min-h-[10rem]
+    shadow-lg rounded-md overflow-hidden;
+  }
+  .badge {
+    @apply px-3 py-1 rounded-full text-xs bg-gray-100;
+  }
+  .product-title {
+    @apply font-semibold text-xl overflow-ellipsis overflow-hidden whitespace-nowrap;
+  }
+  .button-icon {
+    @apply flex-grow flex justify-center items-center
+    transition rounded-md;
+  }
+  .buttonCart {
+    @apply h-10 w-1/2 text-sm leading-[160%] border border-cyan-900 rounded-full;
+  }
+}
